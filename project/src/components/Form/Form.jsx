@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useRef } from "react";
 import styles from './Form.module.scss'
 import generalStyles from '../App/App.module.scss';
+// import { changeCity } from "../../store/actions";
+
+
 
 function Form() {
+  const locationRef = useRef();
+
+  // const onSubmit = () => {
+  //   dispatch(changeCity(locationRef.current.value));
+  // }
+
   return (
     <section className={styles.form}>
       <form action="#" className={styles.form}>
@@ -10,7 +19,12 @@ function Form() {
           <li>
             <label>
               <p>Локация</p>
-              <input type="text" />
+              <input
+                ref={locationRef}
+                type="text"
+                defaultValue='Москва'
+              />
+              {/* <span className={generalStyles.error__msg}>Тут ошибка</span> */}
             </label>
           </li>
           <li>
@@ -23,7 +37,7 @@ function Form() {
           <li>
             <label>
               <p>Количество дней</p>
-              <input type="text" />
+              <input type="number" />
             </label>
           </li>
         </ul>
@@ -31,7 +45,7 @@ function Form() {
           className={generalStyles.btn}
           type='button'
         >
-          Войти
+          Найти
         </button>
       </form>
     </section>

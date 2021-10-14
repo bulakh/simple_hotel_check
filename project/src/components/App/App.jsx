@@ -4,6 +4,7 @@ import { AppRoute } from '../../const';
 import Login from '../Login/Login';
 import Main from '../Main/Main';
 import NoPage404 from '../NoPage404/NoPage404';
+// import Loading from '../Loading/Loading';
 
 
 

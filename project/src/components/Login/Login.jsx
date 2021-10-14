@@ -22,12 +22,14 @@ function Login() {
             <label>
               <p>Логин</p>
               <input type="email" />
+              {/* <span className={generalStyles.error__msg}>Тут ошибка</span> */}
             </label>
           </li>
           <li>
             <label>
               <p>Пароль</p>
               <input type="password" />
+              {/* <span className={generalStyles.error__msg}>Тут ошибка</span> */}
             </label>
           </li>
         </ul>

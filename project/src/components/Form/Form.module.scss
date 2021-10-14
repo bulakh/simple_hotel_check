@@ -14,10 +14,14 @@
   }
 
   & input {
+    width: 93%;
     padding: 10px;
 
     font-family: inherit;
-    font-size: 24px;
+    font-size: 16px;
+    font-weight: 300;
+
+    color: inherit;
 
     border: 1px solid $grey-ligth;
   }
@@ -36,7 +40,7 @@
 
   & ~ button {
   position: absolute;
-  top: 43px;
+  top: 40px;
   right: 12px;
 
   width: 24px;
