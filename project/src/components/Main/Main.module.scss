@@ -1,0 +1,62 @@
+@import '../../variables.scss';
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 32px;
+
+  & h1 {
+    margin: 0;
+    font-size: 24px;
+  }
+
+  & a {
+    position: relative;
+
+    margin-right: 34px;
+
+    font-weight: 400;
+
+    &::after {
+      position: absolute;
+
+      content: '';
+      width: 22px;
+      height: 22px;
+      margin-left: 12px;
+
+      background-repeat: no-repeat;
+      background-position: center;
+      background-image: url("data:image/svg+xml,%3Csvg width='22' height='22' viewBox='0 0 22 22' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 20H4C3.46957 20 2.96086 19.7893 2.58579 19.4142C2.21071 19.0391 2 18.5304 2 18V4C2 3.46957 2.21071 2.96086 2.58579 2.58579C2.96086 2.21071 3.46957 2 4 2H8' stroke='%2341522E' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M15 16L20 11L15 6' stroke='%2341522E' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M20 11H8' stroke='%2341522E' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    }
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}
+
+.main {
+  display: grid;
+  grid-template-columns: 360px 664px;
+  grid-template-rows: 424px 472px;
+  gap: 24px;
+  grid-template-areas:
+    "form display"
+    "favorite display";
+
+  width: 1048px;
+  height: 906px;
+
+  margin: auto;
+  margin-bottom: 40px;
+}
+
+section {
+  padding: 32px;
+
+  border-radius: 16px;
+  background-color: $white;
+  box-shadow: $shadow;
+}

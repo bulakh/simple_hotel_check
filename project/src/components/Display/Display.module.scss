@@ -1,0 +1,180 @@
+@import '../../variables.scss';
+
+.display {
+  grid-area: display;
+
+  padding: 32px;
+}
+
+.header__wrap {
+  position: relative;
+
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 34px;
+
+  margin-top: 16px;
+  margin-bottom: 28px;
+
+  & h2 {
+    margin: 0;
+
+    font-size: 32px;
+    font-weight: 500;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 4px;
+      left: 105px;
+
+      width: 9px;
+      height: 18px;
+
+      background-repeat: no-repeat;
+      background-position: center;
+      background-image: url("data:image/svg+xml,%3Csvg width='11' height='20' viewBox='0 0 11 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0.999878 1.33334L9.66654 10L0.999878 18.6667' stroke='%23A7A7A7' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    }
+  }
+}
+
+.location {
+  font-size: 32px;
+  flex-grow: 1;
+}
+
+.checkindate {
+  font-size: 24px;
+  font-weight: 400;
+
+  color: $dark-green;
+}
+
+.carousel {
+
+  & ul {
+    display: flex;
+    gap: 12px;
+
+    padding-bottom: 28px;
+
+    overflow: hidden;
+  }
+
+  & li {
+    width: 164px;
+    height: 149px;
+
+    flex-shrink: 0;
+
+    background-color: violet;
+    border-radius: 10px;
+    box-shadow: $shadow2;
+  }
+}
+
+.added {
+  margin-bottom: 20px;
+
+  font-size: 17px;
+  font-weight: 300;
+
+  & span{
+    font-weight: 500;
+
+    color: $dark-green;
+  }
+}
+
+.list__wrap {
+  height: 553px;
+}
+
+.list {
+
+  width: 95%;
+
+  & h3 {
+    width: 92%;
+    margin: 0;
+
+    font-size: 17px;
+    font-weight: 300;
+  }
+
+  & li {
+    position: relative;
+
+    display: flex;
+    gap: 24px;
+
+    margin-top: 16px;
+    padding-bottom: 16px;
+
+    border-bottom: 1px solid $line;
+  }
+}
+
+.li__wrap {
+  flex-grow: 1;
+}
+
+.icon {
+  width: 64px;
+  height: 64px;
+
+  border-radius: 50%;
+
+  background: url('../../img/house.svg');
+  background-color: $icon-back;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.date {
+  display: inline-block;
+  margin-bottom: 10px;
+
+  font-size: 14px;
+  font-weight: 400;
+
+  color: $grey-ligth2;
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.rating__wrap {
+  width: 99px;
+  height: 17px;
+  background: url('../../img/empty_stars.svg');
+}
+
+.rating {
+  display: block;
+  height: 17px;
+  background: url('../../img/stars.svg');
+}
+
+.price {
+  margin-left: 275px;
+
+  font-size: 11px;
+  font-weight: 300;
+
+  color: $grey-ligth2;
+}
+
+.number {
+  font-size: 17px;
+  font-weight: 400;
+}
+
+.btn__heart {
+  top: 2px;
+  right: 0;
+}
