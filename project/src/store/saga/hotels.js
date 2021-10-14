@@ -2,7 +2,7 @@ import { put, takeEvery, call } from 'redux-saga/effects';
 import { ActionType, setHotels } from '../actions.js';
 
 
-const fetchDataHotels = () => fetch('http://engine.hotellook.com/api/v2/cache.json?location=Москва&currency=rub&checkIn=2021-12-10&checkOut=2021-12-12&limit=10');
+const fetchDataHotels = () => fetch('https://engine.hotellook.com/api/v2/cache.json?location=Москва&currency=rub&checkIn=2021-12-10&checkOut=2021-12-12&limit=10');
 
 export function* fetchHotelsWorker() {
   const data = yield call(fetchDataHotels);
