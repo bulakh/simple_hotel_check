@@ -1,20 +1,31 @@
 import React, { useRef } from "react";
 import styles from './Form.module.scss'
 import generalStyles from '../App/App.module.scss';
-// import { changeCity } from "../../store/actions";
+import { changeCity, changeDate, changeDayCount } from "../../store/actions";
+import { useDispatch } from "react-redux";
+import { parsedDate } from '../../utils.js';
+
 
 
 
 function Form() {
   const locationRef = useRef();
+  const dateRef = useRef();
+  const dayCountRef = useRef();
+  const dispatch = useDispatch();
 
-  // const onSubmit = () => {
-  //   dispatch(changeCity(locationRef.current.value));
-  // }
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+
+    dispatch(changeCity(locationRef.current.value));
+    const correctDate = parsedDate(dateRef.current.value);
+    dispatch(changeDate(correctDate));
+    dispatch(changeDayCount(dayCountRef.current.value));
+  }
 
   return (
     <section className={styles.form}>
-      <form action="#" className={styles.form}>
+      <form action="" className={styles.form} onSubmit={handleSubmit}>
         <ul className={styles.list}>
           <li>
             <label>
@@ -30,14 +41,23 @@ function Form() {
           <li>
             <label>
               <p>Дата заселения</p>
-              <input className={styles.date} type="text" />
+              <input
+                ref={dateRef}
+                className={styles.date}
+                type="text"
+                defaultValue={new Date().toLocaleDateString()}
+              />
               <button type='button'></button>
             </label>
           </li>
           <li>
             <label>
               <p>Количество дней</p>
-              <input type="number" />
+              <input
+                ref={dayCountRef}
+                type="number"
+                defaultValue='1'
+              />
             </label>
           </li>
         </ul>

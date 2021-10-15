@@ -45,6 +45,18 @@ a {
   color: $error;
 }
 
+.error__label {
+  & p {
+    color: $error;
+  }
+
+  & input {
+    outline: none;
+    color: $error;
+    border: 1px solid $error;
+  }
+}
+
 .btn {
   padding: 15px;
 
@@ -60,6 +72,12 @@ a {
 
   &:hover {
     cursor: pointer;
+  }
+
+  &:disabled {
+    color: $disabled;
+
+    cursor: default;
   }
 }
 

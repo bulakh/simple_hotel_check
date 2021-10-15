@@ -3,16 +3,16 @@ import styles from './Display.module.scss'
 import generalStyles from '../App/App.module.scss';
 import cn from 'classnames';
 import { useSelector } from "react-redux";
-import { getLocation } from "../../store/inputData/selectors";
+import { getDate, getLocation, getDayCount } from "../../store/inputData/selectors";
 import { getHotels } from "../../store/receivedData/selectors";
+import { getDisplayDate, getItemDate } from '../../utils.js';
 // import Loading from '../Loading/Loading.jsx';
 
 function Display() {
   const currentLocation = useSelector(getLocation);
+  const currentDate = useSelector(getDate);
+  const currentDayCount = useSelector(getDayCount);
   const allHotels = useSelector(getHotels);
-
-
-  console.log('inCompo', allHotels)
 
 
   return (
@@ -20,7 +20,7 @@ function Display() {
       <div className={styles.header__wrap}>
         <h2>Отели</h2>
         <p className={styles.location}>{currentLocation}</p>
-        <p className={styles.checkindate}>07 июля 2020</p>
+        <p className={styles.checkindate}>{getDisplayDate(currentDate)}</p>
       </div>
       <div className={styles.carousel}>
         <ul>
@@ -52,7 +52,7 @@ function Display() {
                 <div className={styles.li__wrap}>
                   <h3>{hotel.hotelName}</h3>
                   <span className={styles.date}>
-                    28 June, 2020 &nbsp; — &nbsp; 1 день
+                    {getItemDate(currentDate)} &nbsp; — &nbsp; {currentDayCount} day
                   </span>
                   <div className={styles.info}>
                     <div className={styles.rating__wrap}>

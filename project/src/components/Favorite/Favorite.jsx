@@ -16,7 +16,7 @@ function Favorite() {
           <li>
             <h3>Moscow Marriott Grand Hotel</h3>
             <span className={styles.date}>
-              28 June, 2020 &nbsp; — &nbsp; 1 день
+              28 June, 2020 &nbsp; — &nbsp; 1 day
             </span>
             <div className={styles.info}>
               <div className={styles.rating__wrap}>
