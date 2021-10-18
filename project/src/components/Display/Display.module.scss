@@ -4,6 +4,8 @@
   grid-area: display;
 
   padding: 32px;
+
+  overflow: hidden;
 }
 
 .header__wrap {
@@ -52,6 +54,7 @@
 }
 
 .carousel {
+  position: relative;
 
   & ul {
     display: flex;
@@ -59,18 +62,62 @@
 
     padding-bottom: 28px;
 
-    overflow: hidden;
+    overflow: overlay;
+
+    transition: all .2s;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 
   & li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+
     width: 164px;
     height: 149px;
 
     flex-shrink: 0;
 
-    background-color: violet;
+    background-color: $grey-ligth3;
     border-radius: 10px;
     box-shadow: $shadow2;
+
+    & img {
+      height: 100%;
+    }
+  }
+
+  .btn__scroll {
+    position: absolute;
+    top: 0;
+
+
+    width: 10px;
+    height: 149px;
+
+    background-color: $grey-ligth;
+    opacity: 0.3;
+    border: none;
+
+
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    &_rigth {
+      right: -5px;
+      border-radius: 0 10px 10px 0;
+    }
+    &_left {
+      left: -5px;
+      border-radius: 10px 0 0 10px;
+    }
   }
 }
 
@@ -161,7 +208,7 @@
 }
 
 .price {
-  margin-left: 275px;
+  margin-left: 250px;
 
   font-size: 11px;
   font-weight: 300;
