@@ -40,11 +40,11 @@
 .main {
   display: grid;
   grid-template-columns: 360px 664px;
-  grid-template-rows: 424px 472px;
+  grid-template-rows: 399px 482px;
   gap: 24px;
   grid-template-areas:
     "form display"
-    "favorite display";
+    "favorites display";
 
   width: 1048px;
   height: 906px;

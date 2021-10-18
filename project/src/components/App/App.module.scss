@@ -26,6 +26,18 @@ a {
   text-decoration: none;
 }
 
+.input {
+  padding: 10px;
+
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 300;
+
+  color: inherit;
+  border: 1px solid $grey-ligth;
+  border-radius: 4px;
+}
+
 .hidden {
   position: absolute;
   width: 1px;
@@ -81,7 +93,7 @@ a {
   }
 }
 
-.btn__favorite {
+.btn__favorites {
   position: absolute;
 
   width: 21px;

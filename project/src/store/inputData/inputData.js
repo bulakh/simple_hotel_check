@@ -1,4 +1,4 @@
-import {createReducer} from '@reduxjs/toolkit';
+import { createReducer } from '@reduxjs/toolkit';
 import { changeCity, changeDate, changeDayCount, changeEmail } from '../actions.js';
 
 const initialState = {
@@ -7,8 +7,6 @@ const initialState = {
   dayCount: '1',
   email: ''
 };
-
-// new Date().toISOString().substring(0, 10),
 
 export const inputData = createReducer(initialState, (builder) => {
   builder

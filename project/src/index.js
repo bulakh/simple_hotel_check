@@ -4,11 +4,16 @@ import './index.css';
 import App from './components/App/App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
-import { store } from './store/index.js'
-import { fetchHotels } from './store/actions.js'
+import { store } from './store/index.js';
+import { fetchHotels, changeEmail, fetchImages } from './store/actions.js';
 
 
+store.dispatch(fetchImages());
 store.dispatch(fetchHotels());
+
+if (localStorage.email) {
+  store.dispatch(changeEmail(localStorage.email));
+}
 
 ReactDOM.render(
   <React.StrictMode>

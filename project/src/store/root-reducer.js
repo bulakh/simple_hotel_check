@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux';
-import { inputData } from './inputData/inputData.js'
-import { receivedData } from './receivedData/receivedData.js'
+import { inputData } from './inputData/inputData.js';
+import { receivedData } from './receivedData/receivedData.js';
 
 
 
