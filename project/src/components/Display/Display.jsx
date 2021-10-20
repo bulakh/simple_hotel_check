@@ -23,34 +23,40 @@ function Display() {
   const allImages = useSelector(getImages);
 
 
-  const favoritesHandler = (evt) => {
+  const favoritesHandler = (id) => {
     const favorites = allFavorites.slice();
 
-    const addFavorites = () => {
+    const addFavorite = () => {
       allHotels.forEach((hotel) => {
+
         const upgradedHotel = {
           ...hotel,
           date: getItemDate(currentDate),
           days: currentDayCount,
         }
 
-        if (hotel.hotelId === Number(evt.target.id)) {
+        if (hotel.hotelId === id) {
           dispatch(changeFavorites([...favorites, upgradedHotel]))
         }
       });
     }
 
+    const removeFavorite = (index) => {
+      favorites.splice(index, 1);
+      dispatch(changeFavorites(favorites));
+    }
+
     if (favorites.length === 0) {
-      addFavorites();
+      addFavorite();
       } else {
         favorites.forEach((favorite, index) => {
-          if (favorite.hotelId === Number(evt.target.id)) {
-            favorites.splice(index, 1);
-            dispatch(changeFavorites(favorites));
+          if (favorite.hotelId === id) {
+            removeFavorite(index);
           } else {
-            addFavorites();
+            addFavorite();
           }
         });
+
       }
   };
 
@@ -98,8 +104,7 @@ function Display() {
       </p>
 
       <div className={cn(generalStyles.scroll, styles.list__wrap)}>
-        <ul className={styles.list} onClick={favoritesHandler}>
-
+        <ul className={styles.list}>
           {allHotels.length === 0 || allHotels.status === 'error'
             ? <p className={generalStyles.empty}>Отелей не найдено</p>
             : allHotels.map((hotel) => (
@@ -122,7 +127,7 @@ function Display() {
                     </div>
                     <button
                       className={cn(generalStyles.btn__favorites, styles.btn__heart)}
-                      id={hotel.hotelId}
+                      onClick={() => favoritesHandler(hotel.hotelId)}
                     >
                     </button>
                   </div>
