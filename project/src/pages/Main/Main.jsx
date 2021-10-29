@@ -2,10 +2,10 @@ import React from 'react';
 import { AppRoute } from '../../const';
 import { Link } from 'react-router-dom';
 import styles from './Main.module.scss'
-import generalStyles from '../App/App.module.scss';
-import Form from '../Form/Form';
-import Display from '../Display/Display';
-import Favorites from '../Favorites/Favorites';
+import generalStyles from '../../components/App/App.module.scss';
+import Form from '../../components/Form/Form';
+import Display from '../../components/Display/Display';
+import Favorites from '../../components/Favorites/Favorites';
 import { useDispatch } from 'react-redux';
 import { changeEmail, changeFavorites } from '../../store/actions';
 

@@ -16,11 +16,11 @@ function Favorites() {
   const [btnRateActive, setBtnRateActive] = useState(styles.btn__sort);
   const [btnPriceActive, setBtnPriceActive] = useState(styles.btn__sort);
 
-  const removeFavorites = (evt) => {
+  const removeFavorite = (id) => {
     const favorites = allFavorites.slice();
 
     favorites.forEach((hotel, index) => {
-      if (hotel.hotelId === Number(evt.target.id)) {
+      if (hotel.hotelId === id) {
         favorites.splice(index, 1);
         dispatch(changeFavorites(favorites));
       }
@@ -74,7 +74,7 @@ function Favorites() {
         </button>
       </div>}
       <div className={cn(generalStyles.scroll, styles.list__wrap)}>
-        <ul onClick={removeFavorites}>
+        <ul>
           {allFavorites.length === 0
           ? <p className={generalStyles.empty}>Добавьте свой первый отель</p>
           : allFavorites.map((hotel) => (
@@ -95,7 +95,7 @@ function Favorites() {
                 </div>
                 <button
                   className={cn(generalStyles.btn__favorites, styles.btn__heart)}
-                  id={hotel.hotelId}
+                  onClick={() => removeFavorite(hotel.hotelId)}
                 >
                 </button>
               </li>

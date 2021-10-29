@@ -1,9 +1,9 @@
 import React from 'react';
 import {BrowserRouter, Switch, Route, Redirect} from 'react-router-dom';
 import { AppRoute } from '../../const';
-import Login from '../Login/Login';
-import Main from '../Main/Main';
-import NoPage404 from '../NoPage404/NoPage404';
+import Login from '../../pages/Login/Login';
+import Main from '../../pages/Main/Main';
+import NoPage404 from '../../pages/NoPage404/NoPage404';
 
 function App() {
 
