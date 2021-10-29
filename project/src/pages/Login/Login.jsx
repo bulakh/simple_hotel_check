@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './Login.module.scss';
-import generalStyles from '../App/App.module.scss';
+import generalStyles from '../../components/App/App.module.scss';
 import cn from 'classnames';
 import { useHistory } from 'react-router';
 import { AppRoute } from '../../const';
@@ -12,39 +12,33 @@ function Login() {
 
   const dispatch = useDispatch();
 
-  const emailRef = useRef();
-
-  const [emailDirty, setEmailDirty] = useState(false);
-  const [passwordDirty, setPasswordDirty] = useState(false);
-
-  const [emailError, setEmailError] = useState('Емейл не может быть пустым');
-  const [passwordError, setPasswordError] = useState('Пароль не может быть пустым');
-
+  const [emailValid, setEmailValid] = useState({dirty: false, error: 'Емейл не может быть пустым'});
+  const [passwordValid, setPasswordValid] = useState({dirty: false, error:'Пароль не может быть пустым'});
   const [formValid, setFormValid] = useState(false);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
-    localStorage.setItem('email', emailRef.current.value);
+    localStorage.setItem('email', evt.target.value);
     history.push(AppRoute.MAIN);
-    dispatch(changeEmail(emailRef.current.value));
+    dispatch(changeEmail(evt.target.value));
   }
 
   useEffect(() => {
-    if(emailError || passwordError) {
+    if(emailValid.error || passwordValid.error) {
       setFormValid(false);
     } else {
       setFormValid(true);
     }
-  }, [emailError, passwordError]);
+  }, [emailValid.error, passwordValid.error]);
 
   const blurHandler = (evt) => {
     switch(evt.target.name) {
       case 'email':
-        setEmailDirty(true);
+        setEmailValid({...emailValid, dirty: true});
         break
       case 'password':
-        setPasswordDirty(true);
+        setPasswordValid({...passwordValid, dirty: true});
         break
       default:
     }
@@ -53,10 +47,10 @@ function Login() {
   const focusHandler = (evt) => {
     switch(evt.target.name) {
       case 'email':
-        setEmailDirty(false);
+        setEmailValid({...emailValid, dirty: false});
         break
       case 'password':
-        setPasswordDirty(false);
+        setPasswordValid({...passwordValid, dirty: false});
         break
       default:
     }
@@ -67,25 +61,25 @@ function Login() {
     const re = /^(([^<>()[\]\\.,;:\s@']+(\.[^<>()[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
     if (!re.test(String(evt.target.value).toLowerCase())) {
-      setEmailError('Некорректный емейл');
+      setEmailValid({...emailValid, error: 'Некорректный емейл'});
       if (!evt.target.value) {
-        setEmailError('Емейл не может быть пустым');
+        setEmailValid({...emailValid, error: 'Емейл не может быть пустым'});
       }
     } else {
-      setEmailError('');
+      setEmailValid({...emailValid, error: ''});
       }
   };
 
   const passwordHandler = (evt) => {
     if (evt.target.value.length < 8) {
-      setPasswordError('Пароль должен быть длиннее 8 символов');
+      setPasswordValid({...passwordValid, error: 'Пароль должен быть длиннее 8 символов'});
       if (!evt.target.value) {
-        setPasswordError('Пароль не может быть пустым');
+        setPasswordValid({...passwordValid, error: 'Пароль не может быть пустым'});
       }
     } else if (evt.target.value.match(/[а-яА-ЯЁё]/ig) !== null) {
-        setPasswordError('Не используйте кириллицу');
+        setPasswordValid({...passwordValid, error: 'Не используйте кириллицу'});
       } else {
-          setPasswordError('');
+          setPasswordValid({...passwordValid, error: ''});
         }
   };
 
@@ -97,7 +91,7 @@ function Login() {
         <ul className={styles.list}>
           <li>
             <label
-              className={(emailDirty && emailError) ? generalStyles.error__label : ''}
+              className={(emailValid.dirty && emailValid.error) ? generalStyles.error__label : ''}
             >
               <p>Логин</p>
               <input
@@ -105,20 +99,19 @@ function Login() {
                 onBlur={blurHandler}
                 onFocus={focusHandler}
                 name='email'
-                ref={emailRef}
                 type='email'
                 autoComplete='email'
                 className={generalStyles.input}
               />
-              {(emailDirty && emailError) &&
+              {(emailValid.dirty && emailValid.error) &&
                 <span className={generalStyles.error__msg}>
-                  {emailError}
+                  {emailValid.error}
                 </span>}
             </label>
           </li>
           <li>
             <label
-              className={(passwordDirty && passwordError) ? generalStyles.error__label : ''}
+              className={(passwordValid.dirty && passwordValid.error) ? generalStyles.error__label : ''}
             >
               <p>Пароль</p>
               <input
@@ -130,9 +123,9 @@ function Login() {
                 className={generalStyles.input}
                 autoComplete='password'
               />
-              {(passwordDirty && passwordError) &&
+              {(passwordValid.dirty && passwordValid.error) &&
                 <span className={generalStyles.error__msg}>
-                  {passwordError}
+                  {passwordValid.error}
                 </span>}
             </label>
           </li>
