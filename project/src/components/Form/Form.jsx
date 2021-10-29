@@ -7,111 +7,39 @@ import { parsedDate } from '../../utils.js';
 import NumberFormat from 'react-number-format';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-
-
+import { blurHandler, focusHandler, locationHandler, dateHandler, daysCountHandler, datePickerHandler } from '../../hooks/useFormValid';
 
 
 function Form() {
   const dispatch = useDispatch();
 
-  const locationRef = useRef();
   const dateRef = useRef();
-  const dayCountRef = useRef();
 
   const [startDate, setStartDate] = useState(new Date());
 
-  const [locationDirty, setLocationDirty] = useState(false);
-  const [dateDirty, setDateDirty] = useState(false);
-  const [countDirty, setCountDirty] = useState(false);
-
-
-  const [locationError, setLocationError] = useState('');
-  const [dateError, setDateError] = useState('');
-  const [countError, setCountError] = useState('');
+  const [location, setLocation] = useState({name: 'Москва', dirty: false, error: ''});
+  const [date, setDate] = useState({selected: '', dirty: false, error: ''});
+  const [count, setCount] = useState({current: '1', dirty: false, error: ''});
 
   const [formValid, setFormValid] = useState(false);
 
   useEffect(() => {
-    if(locationError || dateError || countError) {
+    if(location.error || date.error || count.error) {
       setFormValid(false);
     } else {
       setFormValid(true);
     }
 
-  }, [locationError, dateError, countError]);
+  }, [location.error, date.error, count.error]);
 
   const submitHandler = (evt) => {
     evt.preventDefault();
 
-    dispatch(changeCity(locationRef.current.value));
+    dispatch(changeCity(location.name));
     const correctDate = parsedDate(dateRef.current.state.value);
     dispatch(changeDate(correctDate));
-    dispatch(changeDayCount(dayCountRef.current.state.value));
+    dispatch(changeDayCount(count.current));
     dispatch(fetchHotels());
-  }
-
-  const blurHandler = (evt) => {
-    switch(evt.target.name) {
-      case 'location':
-        setLocationDirty(true);
-        break
-      case 'date':
-        setDateDirty(true);
-        break
-      case 'count':
-        setCountDirty(true);
-        break
-      default:
-    }
-  }
-
-  const focusHandler = (evt) => {
-    switch(evt.target.name) {
-      case 'location':
-        setLocationDirty(false);
-        break
-      case 'date':
-        setDateDirty(false);
-        break
-      case 'count':
-        setCountDirty(false);
-        break
-      default:
-    }
-  }
-
-  const locationHandler = (evt) => {
-    if (!evt.target.value) {
-      setLocationError('Введите город');
-    } else {
-      setLocationError('');
-    }
-  }
-
-
-  const dateHandler = (evt) => {
-    if (parsedDate(evt.target.value).toString() === 'Invalid Date') {
-      setDateError('Введите корректную дату');
-      if (!evt.target.value) {
-        setDateError('Дата должна быть');
-      }
-    } else {
-      setDateError('');
-      setStartDate(parsedDate(evt.target.value));
-    }
-  }
-
-  const daysCountHandler = (evt) => {
-    if (!evt.target.value || Number(evt.target.value) === 0) {
-      setCountError('Насколько дней?');
-    } else {
-      setCountError('');
-    }
-  }
-
-  const datePickerHandler = (date) => {
-    setStartDate(date);
-    dateRef.current.state.numAsString = date.toLocaleDateString().split('.').join('');
   }
 
   return (
@@ -120,34 +48,33 @@ function Form() {
         <ul className={styles.list}>
           <li>
             <label
-              className={(locationDirty && locationError) ? generalStyles.error__label : ''}
+              className={(location.dirty && location.error) ? generalStyles.error__label : ''}
             >
               <p>Локация</p>
               <input
-                onBlur={blurHandler}
-                onFocus={focusHandler}
-                onChange={locationHandler}
-                ref={locationRef}
+                onBlur={(evt) => blurHandler(evt, location, setLocation, date, setDate, count, setCount)}
+                onFocus={(evt) => focusHandler(evt, location, setLocation, date, setDate, count, setCount)}
+                onChange={(evt) => locationHandler(evt, location, setLocation)}
                 className={generalStyles.input}
                 type='text'
                 defaultValue='Москва'
                 name='location'
               />
-              {(locationDirty && locationError) &&
+              {(location.dirty && location.error) &&
                 <span className={generalStyles.error__msg}>
-                  {locationError}
+                  {location.error}
                 </span>}
             </label>
           </li>
           <li>
             <label
-              className={(dateDirty && dateError) ? generalStyles.error__label : ''}
+              className={(date.dirty && date.error) ? generalStyles.error__label : ''}
             >
               <p>Дата заселения</p>
               <NumberFormat
-                onBlur={blurHandler}
-                onFocus={focusHandler}
-                onChange={dateHandler}
+                onBlur={(evt) => blurHandler(evt, location, setLocation, date, setDate, count, setCount)}
+                onFocus={(evt) => focusHandler(evt, location, setLocation, date, setDate, count, setCount)}
+                onChange={(evt) => dateHandler(evt, date, setDate, setStartDate)}
                 ref={dateRef}
                 className={generalStyles.input}
                 name='date'
@@ -157,7 +84,7 @@ function Form() {
               />
               <div className={styles.datepicker__wrap}>
                 <DatePicker
-                    onChange={(date) => datePickerHandler(date)}
+                    onChange={(date) => datePickerHandler(date, setStartDate, dateRef)}
                     selected={startDate}
                     preventOpenOnFocus={true}
                     customInput={
@@ -169,30 +96,29 @@ function Form() {
                     }
                 />
               </div>
-              {(dateDirty && dateError) &&
+              {(date.dirty && date.error) &&
                 <span className={generalStyles.error__msg}>
-                  {dateError}
+                  {date.error}
                 </span>}
             </label>
           </li>
           <li>
             <label
-              className={(countDirty && countError) ? generalStyles.error__label : ''}
+              className={(count.dirty && count.error) ? generalStyles.error__label : ''}
             >
               <p>Количество дней</p>
               <NumberFormat
-                onBlur={blurHandler}
-                onFocus={focusHandler}
-                onChange={daysCountHandler}
-                ref={dayCountRef}
+                onBlur={(evt) => blurHandler(evt, location, setLocation, date, setDate, count, setCount)}
+                onFocus={(evt) => focusHandler(evt, location, setLocation, date, setDate, count, setCount)}
+                onChange={(evt) => daysCountHandler(evt, count, setCount)}
                 name='count'
                 maxLength='3'
                 defaultValue='1'
                 className={generalStyles.input}
               />
-              {(countDirty && countError) &&
+              {(count.dirty && count.error) &&
                 <span className={generalStyles.error__msg}>
-                  {countError}
+                  {count.error}
                 </span>}
             </label>
           </li>

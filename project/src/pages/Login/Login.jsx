@@ -13,16 +13,16 @@ function Login() {
 
   const dispatch = useDispatch();
 
-  const [emailValid, setEmailValid] = useState({dirty: false, error: 'Емейл не может быть пустым'});
+  const [emailValid, setEmailValid] = useState({login: '', dirty: false, error: 'Емейл не может быть пустым'});
   const [passwordValid, setPasswordValid] = useState({dirty: false, error:'Пароль не может быть пустым'});
   const [formValid, setFormValid] = useState(false);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
-    localStorage.setItem('email', evt.target.value);
+    localStorage.setItem('email', emailValid.login);
     history.push(AppRoute.MAIN);
-    dispatch(changeEmail(evt.target.value));
+    dispatch(changeEmail(emailValid.login));
   }
 
   useEffect(() => {

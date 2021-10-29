@@ -23,7 +23,6 @@ export const focusHandler = (evt, email, setEmail, password, setPassword) => {
 };
 
 export const emailHandler = (evt, email, setEmail) => {
-
   const re = /^(([^<>()[\]\\.,;:\s@']+(\.[^<>()[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   if (!re.test(String(evt.target.value).toLowerCase())) {
@@ -32,7 +31,7 @@ export const emailHandler = (evt, email, setEmail) => {
       setEmail({...email, error: 'Емейл не может быть пустым'});
     }
   } else {
-    setEmail({...email, error: ''});
+      setEmail({...email, error: '', login: evt.target.value});
     }
 };
 
