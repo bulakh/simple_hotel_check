@@ -6,7 +6,6 @@ import { useSelector } from 'react-redux';
 import { getSortedFavorites } from '../../store/receivedData/selectors';
 import { useDispatch } from 'react-redux';
 import { changeFavorites, changeSort } from '../../store/actions';
-// import { SortType } from '../../const';
 import { sortHandler } from '../../hooks/useFavoritesSort.js';
 import { removeFavorite } from '../../hooks/useFavoritesChange';
 
