@@ -46,8 +46,18 @@ function Login() {
               <p>Логин</p>
               <input
                 onChange={(evt) => emailHandler(evt, emailValid, setEmailValid)}
-                onBlur={(evt) => blurHandler(evt, emailValid, setEmailValid, passwordValid, setPasswordValid)}
-                onFocus={(evt) => focusHandler(evt, emailValid, setEmailValid, passwordValid, setPasswordValid)}
+                onBlur={(evt) => blurHandler(
+                  evt,
+                  emailValid,
+                  setEmailValid,
+                  passwordValid,
+                  setPasswordValid)}
+                onFocus={(evt) => focusHandler(
+                  evt,
+                  emailValid,
+                  setEmailValid,
+                  passwordValid,
+                  setPasswordValid)}
                 name='email'
                 type='email'
                 autoComplete='email'

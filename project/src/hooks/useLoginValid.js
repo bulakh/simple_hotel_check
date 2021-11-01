@@ -10,7 +10,12 @@ export const blurHandler = (evt, email, setEmail, password, setPassword) => {
   }
 };
 
-export const focusHandler = (evt, email, setEmail, password, setPassword) => {
+export const focusHandler = (
+  evt,
+  email,
+  setEmail,
+  password,
+  setPassword) => {
   switch(evt.target.name) {
     case 'email':
       setEmail({...email, dirty: false});
