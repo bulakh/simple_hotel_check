@@ -1,6 +1,13 @@
 import { parsedDate } from "../utils";
 
-export const blurHandler = (evt, location, setLocation, date, setDate, count, setCount) => {
+export const blurHandler = (
+  evt,
+  location,
+  setLocation,
+  date,
+  setDate,
+  count,
+  setCount) => {
   switch(evt.target.name) {
     case 'location':
       setLocation({...location, dirty: true})
@@ -15,7 +22,14 @@ export const blurHandler = (evt, location, setLocation, date, setDate, count, se
   }
 }
 
-export const focusHandler = (evt, location, setLocation, date, setDate, count, setCount) => {
+export const focusHandler = (
+  evt,
+  location,
+  setLocation,
+  date,
+  setDate,
+  count,
+  setCount) => {
   switch(evt.target.name) {
     case 'location':
       setLocation({...location, dirty: false});

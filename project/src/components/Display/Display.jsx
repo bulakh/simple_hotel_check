@@ -8,7 +8,8 @@ import { getFavorites, getHotels, getImages } from '../../store/receivedData/sel
 import { getDisplayDate, getItemDate } from '../../utils.js';
 import { useDispatch } from 'react-redux';
 import { changeFavorites } from '../../store/actions';
-import { SCROLL_WIDTH } from '../../const';
+import { scrollLeft, scrollRigth } from '../../hooks/useSlider.js';
+import { favoritesHandler } from '../../hooks/useFavoritesChange.js';
 
 function Display() {
   const dispatch = useDispatch();
@@ -21,52 +22,6 @@ function Display() {
   const allHotels = useSelector(getHotels);
   const allFavorites = useSelector(getFavorites);
   const allImages = useSelector(getImages);
-
-
-  const favoritesHandler = (id) => {
-    const favorites = allFavorites.slice();
-
-    const addFavorite = () => {
-      allHotels.forEach((hotel) => {
-
-        const upgradedHotel = {
-          ...hotel,
-          date: getItemDate(currentDate),
-          days: currentDayCount,
-        }
-
-        if (hotel.hotelId === id) {
-          dispatch(changeFavorites([...favorites, upgradedHotel]))
-        }
-      });
-    }
-
-    const removeFavorite = (index) => {
-      favorites.splice(index, 1);
-      dispatch(changeFavorites(favorites));
-    }
-
-    if (favorites.length === 0) {
-      addFavorite();
-      } else {
-        favorites.forEach((favorite, index) => {
-          if (favorite.hotelId === id) {
-            removeFavorite(index);
-          } else {
-            addFavorite();
-          }
-        });
-
-      }
-  };
-
-  const scrollLeft = () => {
-    listRef.current.scrollLeft -= SCROLL_WIDTH;
-  }
-
-  const scrollRigth = () => {
-    listRef.current.scrollLeft += SCROLL_WIDTH;
-  }
 
   return (
     <section className={styles.display}>
@@ -87,13 +42,13 @@ function Display() {
           <button
             className={cn(styles.btn__scroll, styles.btn__scroll_left)}
             type='button'
-            onClick={scrollLeft}
+            onClick={() => scrollLeft(listRef)}
           >
           </button>
           <button
             className={cn(styles.btn__scroll, styles.btn__scroll_rigth)}
             type='button'
-            onClick={scrollRigth}
+            onClick={() => scrollRigth(listRef)}
           >
           </button>
         </div>
@@ -127,7 +82,14 @@ function Display() {
                     </div>
                     <button
                       className={cn(generalStyles.btn__favorites, styles.btn__heart)}
-                      onClick={() => favoritesHandler(hotel.hotelId)}
+                      onClick={() => favoritesHandler(
+                        hotel.hotelId,
+                        allFavorites,
+                        allHotels,
+                        currentDate,
+                        currentDayCount,
+                        dispatch,
+                        changeFavorites)}
                     >
                     </button>
                   </div>

@@ -52,8 +52,22 @@ function Form() {
             >
               <p>Локация</p>
               <input
-                onBlur={(evt) => blurHandler(evt, location, setLocation, date, setDate, count, setCount)}
-                onFocus={(evt) => focusHandler(evt, location, setLocation, date, setDate, count, setCount)}
+                onBlur={(evt) => blurHandler(
+                  evt,
+                  location,
+                  setLocation,
+                  date,
+                  setDate,
+                  count,
+                  setCount)}
+                onFocus={(evt) => focusHandler(
+                  evt,
+                  location,
+                  setLocation,
+                  date,
+                  setDate,
+                  count,
+                  setCount)}
                 onChange={(evt) => locationHandler(evt, location, setLocation)}
                 className={generalStyles.input}
                 type='text'
@@ -72,8 +86,22 @@ function Form() {
             >
               <p>Дата заселения</p>
               <NumberFormat
-                onBlur={(evt) => blurHandler(evt, location, setLocation, date, setDate, count, setCount)}
-                onFocus={(evt) => focusHandler(evt, location, setLocation, date, setDate, count, setCount)}
+                onBlur={(evt) => blurHandler(
+                  evt,
+                  location,
+                  setLocation,
+                  date,
+                  setDate,
+                  count,
+                  setCount)}
+                onFocus={(evt) => focusHandler(
+                  evt,
+                  location,
+                  setLocation,
+                  date,
+                  setDate,
+                  count,
+                  setCount)}
                 onChange={(evt) => dateHandler(evt, date, setDate, setStartDate)}
                 ref={dateRef}
                 className={generalStyles.input}

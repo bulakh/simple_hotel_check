@@ -6,7 +6,8 @@ import { useSelector } from 'react-redux';
 import { getSortedFavorites } from '../../store/receivedData/selectors';
 import { useDispatch } from 'react-redux';
 import { changeFavorites, changeSort } from '../../store/actions';
-import { SortType } from '../../const';
+import { sortHandler } from '../../hooks/useFavoritesSort.js';
+import { removeFavorite } from '../../hooks/useFavoritesChange';
 
 function Favorites() {
   const dispatch = useDispatch();
@@ -16,59 +17,35 @@ function Favorites() {
   const [btnRateActive, setBtnRateActive] = useState(styles.btn__sort);
   const [btnPriceActive, setBtnPriceActive] = useState(styles.btn__sort);
 
-  const removeFavorite = (id) => {
-    const favorites = allFavorites.slice();
-
-    favorites.forEach((hotel, index) => {
-      if (hotel.hotelId === id) {
-        favorites.splice(index, 1);
-        dispatch(changeFavorites(favorites));
-      }
-    })
-  }
-
-  const sortHandler = (state, setState, setOtherState, otherState) => {
-    if (state === styles.btn__sort) {
-      setState(cn(styles.btn__sort, styles.btn__sort_up));
-      setOtherState(styles.btn__sort);
-
-      if (!otherState) {
-        dispatch(changeSort(SortType.TOP_RATED));
-      } else {
-        dispatch(changeSort(SortType.HIGH_TO_LOW));
-      }
-    }
-
-    if (state === cn(styles.btn__sort, styles.btn__sort_up)) {
-      setState(cn(styles.btn__sort, styles.btn__sort_down));
-      setOtherState(styles.btn__sort);
-
-      if (!otherState) {
-        dispatch(changeSort(SortType.BOTTOM_RATED));
-      } else {
-        dispatch(changeSort(SortType.LOW_TO_HIGH));
-      }
-    }
-
-    if (state === cn(styles.btn__sort, styles.btn__sort_down)) {
-      setState(styles.btn__sort);
-      dispatch(changeSort(SortType.WITHOUT));
-    }
-  };
-
   return (
     <section className={styles.favorites}>
       <h2>Избранное</h2>
       {allFavorites.length !== 0 && <div>
         <button
           className={btnRateActive}
-          onClick={() => sortHandler(btnRateActive, setBtnRateActive, setBtnPriceActive)}
+          onClick={() => sortHandler(
+            btnRateActive,
+            setBtnRateActive,
+            setBtnPriceActive,
+            undefined,
+            styles,
+            cn,
+            dispatch,
+            changeSort)}
         >
           Рейтинг
         </button>
         <button
           className={btnPriceActive}
-          onClick={() => sortHandler(btnPriceActive, setBtnPriceActive, setBtnRateActive, btnRateActive)}
+          onClick={() => sortHandler(
+            btnPriceActive,
+            setBtnPriceActive,
+            setBtnRateActive,
+            btnRateActive,
+            styles,
+            cn,
+            dispatch,
+            changeSort)}
         >
           Цена
         </button>
@@ -95,7 +72,7 @@ function Favorites() {
                 </div>
                 <button
                   className={cn(generalStyles.btn__favorites, styles.btn__heart)}
-                  onClick={() => removeFavorite(hotel.hotelId)}
+                  onClick={() => removeFavorite(hotel.hotelId, allFavorites, dispatch, changeFavorites)}
                 >
                 </button>
               </li>
