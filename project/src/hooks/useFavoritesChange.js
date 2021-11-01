@@ -1,5 +1,17 @@
 import { getItemDate } from "../utils";
 
+
+export const removeFavorite = (id, allFavorites, dispatch, changeFavorites) => {
+  const favorites = allFavorites.slice();
+
+  favorites.forEach((hotel, index) => {
+    if (hotel.hotelId === id) {
+      favorites.splice(index, 1);
+      dispatch(changeFavorites(favorites));
+    }
+  })
+}
+
 export const favoritesHandler = (
   id,
   allFavorites,
